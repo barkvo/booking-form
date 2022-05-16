@@ -9,7 +9,7 @@ export interface BasicReservationData {
   country: string;
   city: string;
   address: string;
-  postalCode: number;
+  postalCode: string;
   email: string;
   phone: string;
 }

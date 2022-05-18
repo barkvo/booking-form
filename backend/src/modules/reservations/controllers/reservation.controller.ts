@@ -31,7 +31,7 @@ const transformGetReservationsInput = ({ page, perPage }: GetReservationsRequest
   perPage: isString(perPage) ? parseInt(perPage, 10) : perPage,
 });
 
-@Controller('v1/reservations')
+@Controller('api/v1/reservations')
 export class ReservationController {
   constructor(public readonly reservationService: ReservationService) {}
 

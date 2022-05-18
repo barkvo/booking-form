@@ -25,6 +25,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 
+import { ApiService } from './services/api.service';
+
 registerLocaleData(en);
 
 @NgModule({
@@ -48,7 +50,7 @@ registerLocaleData(en);
     NzTypographyModule,
     NzGridModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

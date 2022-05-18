@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService, CreateReservationRequest } from '../../services/api.service';
 import countryList from './country-list.json';
 
 interface CountryListItem {
@@ -10,6 +10,35 @@ interface CountryListItem {
 
 const buildCountryList = (i: { [key: string]: string }): ReadonlyArray<CountryListItem> =>
   Object.entries(i).map(([key, value]) => ({ id: key, label: value }));
+
+const toggleFormControlsValidation = (form: FormGroup) => {
+  for (const key in form.controls) {
+    form.controls[key].markAsDirty();
+    form.controls[key].updateValueAndValidity();
+  }
+}
+
+interface RawValidFormData {
+  checkInOutDates: [Date, Date];
+  guestsAmount: number;
+  firstName: string;
+  lastName: string;
+  country: string;
+  city: string;
+  address: string;
+  postalCode: string;
+  email: string;
+  phone: string;
+}
+
+const transformFormData = (input: RawValidFormData): CreateReservationRequest => {
+  const { checkInOutDates, ...otherData } = input;
+  return {
+    ...otherData,
+    checkInDate: checkInOutDates[0].toISOString(),
+    checkOutDate: checkInOutDates[1].toISOString(),
+  };
+}
 
 @Component({
   selector: 'app-home-page',
@@ -22,7 +51,7 @@ export class HomePageComponent implements OnInit {
 
   public countryList: ReadonlyArray<CountryListItem> = buildCountryList(countryList);
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   public ngOnInit(): void {
     this.form = new FormGroup({
@@ -39,13 +68,18 @@ export class HomePageComponent implements OnInit {
     });
   }
 
-  public submitForm() {
-    for (const key in this.form.controls) {
-      this.form.controls[key].markAsDirty();
-      this.form.controls[key].updateValueAndValidity();
-    }
+  public async submitForm() {
+    toggleFormControlsValidation(this.form);
     if (!this.form.valid) {
       return;
+    }
+    const data = this.form.value;
+    try {
+      console.log('! data', data, transformFormData(data));
+      const result = await this.apiService.createReservation({ reservationData: transformFormData(data) });
+      console.log('! result', result);
+    } catch (err) {
+      console.log('! error', err);
     }
   }
 

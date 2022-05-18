@@ -13,4 +13,4 @@ wait_for() {
 
 wait_for $POSTGRES_HOST $POSTGRES_PORT
 
-npm run start:prod
+npm run typeorm:mrun && npm run start:prod

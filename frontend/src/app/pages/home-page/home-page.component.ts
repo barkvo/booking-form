@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ApiService, CreateReservationRequest } from '../../services/api.service';
 import countryList from './country-list.json';
 
@@ -41,6 +42,13 @@ const transformFormData = (input: RawValidFormData): CreateReservationRequest =>
   };
 }
 
+const extractErrorMessage = (err: unknown): string => {
+  if (err instanceof Error) {
+    return err.message;
+  }
+  return 'Unknown error'
+} 
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -54,8 +62,11 @@ export class HomePageComponent implements OnInit {
 
   @ViewChild('confirmationTemplate', { static: true }) confirmationTemplate: TemplateRef<{}>;
 
+  public isLoading: boolean = false;
+
   constructor(
     private modalService: NzModalService,
+    private notificationService: NzNotificationService,
     private apiService: ApiService,
   ) { }
 
@@ -103,12 +114,22 @@ export class HomePageComponent implements OnInit {
   }
 
   private async createReservation(data: CreateReservationRequest) {
+    this.isLoading = true;
     try {
-      console.log('! data', data);
       const result = await this.apiService.createReservation({ reservationData: data });
-      console.log('! result', result);
+      this.notificationService
+        .blank(
+          'Success!',
+          'Reservation created succesfully.'
+        )
     } catch (err) {
-      console.log('! error', err);
+      this.notificationService
+        .blank(
+          'Error!',
+          `Failed to create reservation: ${extractErrorMessage(err)}`
+        )
+    } finally {
+      this.isLoading = false;
     }
   }
 

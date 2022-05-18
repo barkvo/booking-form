@@ -5,7 +5,7 @@ $active-selection-color: #d9d1c6;
 
 .container {
   padding: 20px;
-
+  min-width: 600px;
   background-color: $primary-bg-color;
 }
 
@@ -14,10 +14,6 @@ $active-selection-color: #d9d1c6;
   padding-bottom: 20px;
   color: $main-text-color;
   margin-bottom: 0.3em;
-}
-
-nz-form-label{
-  text-align: left;
 }
 
 .ant-form-item {
@@ -29,8 +25,15 @@ nz-form-label{
 .ant-picker-range {
   width: 100%;
   background-color: transparent;
-  border: 1.5px solid $input-border-color;
   border-radius: 0;
+
+  &.ng-pristine {
+    border: 1.5px solid $input-border-color;
+  }
+
+  &.ng-valid {
+    border: 1.5px solid $input-border-color;
+  }
 }
 
 ::ng-deep.ant-picker-input {
@@ -77,10 +80,17 @@ nz-form-label{
 
 .ant-input-number {
   width: 100%;
-  background-color: transparent;
-  border: 1.5px solid $input-border-color;
+  background-color: transparent !important;
   border-radius: 0;
   color: $main-text-color;
+
+  &.ng-pristine {
+    border: 1.5px solid $input-border-color;
+  }
+
+  &.ng-valid {
+    border: 1.5px solid $input-border-color;
+  }
 }
 
 ::ng-deep.ant-input-number-lg {
@@ -100,7 +110,7 @@ nz-form-label{
   color: $main-text-color;
 
   ::ng-deep.ant-select-selector {
-    background-color: transparent;
+    background-color: transparent !important;
     border: 1.5px solid $input-border-color;
     border-radius: 0;
   }
@@ -134,10 +144,17 @@ nz-form-label{
 // other inputs
 
 .ant-input {
-  background-color: transparent;
-  border: 1.5px solid $input-border-color;
+  background-color: transparent !important;
   border-radius: 0;
   color: $main-text-color;
+
+  &.ng-pristine {
+    border: 1.5px solid $input-border-color;
+  }
+
+  &.ng-valid {
+    border: 1.5px solid $input-border-color;
+  }
 }
 
 .ant-input-lg {
@@ -145,6 +162,10 @@ nz-form-label{
 }
 
 // label
+
+nz-form-label{
+  text-align: left;
+}
 
 ::ng-deep.ant-form-item-label {
   label {
@@ -156,12 +177,14 @@ nz-form-label{
   }
 }
 
-::ng-deep.ant-form-item-label-required {
-  label {
-    &:after {
-      content: ' *';
-      color: red;
-    }
+::ng-deep.ant-form-item-required {
+  &:before {
+    display: none !important;
+  }
+
+  &:after {
+    content: ' *' !important;
+    color: red;
   }
 }
 

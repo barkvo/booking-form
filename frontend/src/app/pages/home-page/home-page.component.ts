@@ -39,6 +39,14 @@ export class HomePageComponent implements OnInit {
     });
   }
 
-  public submitForm() {}
+  public submitForm() {
+    for (const key in this.form.controls) {
+      this.form.controls[key].markAsDirty();
+      this.form.controls[key].updateValueAndValidity();
+    }
+    if (!this.form.valid) {
+      return;
+    }
+  }
 
 }

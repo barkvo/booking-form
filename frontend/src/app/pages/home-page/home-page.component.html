@@ -1,96 +1,98 @@
-<div class="container">
-  <h1 nz-typography class="title">Book your suite at limehome</h1>
-  <form nz-form [formGroup]="form" class="form" (ngSubmit)="submitForm()">
-    <div nz-row nzGutter="20">
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-label [nzXs]="24" nzFor="checkInOutDates" class="ant-form-item-label-required label-lg">Check-in/out dates</nz-form-label>
-          <nz-form-control>
-            <nz-range-picker formControlName="checkInOutDates" id="checkInOutDates" nzSize="large"></nz-range-picker>
-          </nz-form-control>
-        </nz-form-item>
+<div nz-row>
+  <div nz-col [nzMd]="{ span: 24 }" [nzLg]="{ span: 20, offset: 2 }" [nzXl]="{ span: 16, offset: 4 }" [nzXXl]="{ span: 12, offset: 6 }" class="container">
+    <h1 nz-typography class="title">Book your suite at limehome</h1>
+    <form nz-form [formGroup]="form" class="form" (ngSubmit)="submitForm()">
+      <div nz-row nzGutter="20">
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzXs]="24" nzFor="checkInOutDates" class="label-lg">Check-in/out dates</nz-form-label>
+            <nz-form-control>
+              <nz-range-picker formControlName="checkInOutDates" id="checkInOutDates" nzSize="large" nzFormat="MMMM d"></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzXs]="24" nzFor="guestsAmount" class="label-lg">Number of guests</nz-form-label>
+            <nz-form-control>
+              <nz-input-number formControlName="guestsAmount" id="guestsAmount" [nzMin]="1" [nzStep]="1" nzSize="large" nzPlaceHolder="Number of guests"></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzXs]="24" nzFor="firstName" class="label-lg">First Name</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="firstName" id="firstName" placeholder="First Name" nzSize="large"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzXs]="24" nzFor="lastName" class="label-lg">Last Name</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="lastName" id="lastName" placeholder="Last Name" nzSize="large"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzXs]="24" nzFor="address" class="label-lg">Billing Address</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="address" id="address" placeholder="Billing Address" nzSize="large"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzXs]="24" nzFor="country" class="label-lg">Billing Country</nz-form-label>
+            <nz-form-control>
+              <nz-select nzShowSearch formControlName="country" nzPlaceHolder="Select Country..." id="country" nzSize="large">
+                <nz-option *ngFor="let item of countryList" [nzValue]="item.id" [nzLabel]="item.label"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzXs]="24" nzFor="postalCode" class="label-lg">Postal Code</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="postalCode" id="postalCode" placeholder="Postal Code" nzSize="large"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzXs]="24" nzFor="city" class="label-lg">City</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="city" id="city" placeholder="City" nzSize="large"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzXs]="24" nzFor="email" class="label-lg">Email</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="email" id="email" placeholder="your@email.com" nzSize="large"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzXs]="24" nzFor="phone" class="label-lg">Phone number</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="phone" id="phone" placeholder="Your Phone number" nzSize="large"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzMd]="12">
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button [nzType]="'primary'" nzSize="large">Book now</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
       </div>
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-label [nzXs]="24" nzFor="guestsAmount" class="ant-form-item-label-required label-lg">Number of guests</nz-form-label>
-          <nz-form-control>
-            <nz-input-number formControlName="guestsAmount" id="guestsAmount" [nzMin]="1" [nzMax]="10" [nzStep]="1" nzSize="large" nzPlaceHolder="Number of guests"></nz-input-number>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-label [nzXs]="24" nzFor="firstName" class="ant-form-item-label-required label-lg">First Name</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="firstName" id="firstName" placeholder="First Name" nzSize="large"/>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-label [nzXs]="24" nzFor="lastName" class="ant-form-item-label-required label-lg">Last Name</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="lastName" id="lastName" placeholder="Last Name" nzSize="large"/>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-label [nzXs]="24" nzFor="address" class="ant-form-item-label-required label-lg">Billing Address</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="address" id="address" placeholder="Billing Address" nzSize="large"/>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-label [nzXs]="24" nzFor="country" class="ant-form-item-label-required label-lg">Billing Country</nz-form-label>
-          <nz-form-control>
-            <nz-select nzShowSearch formControlName="country" nzPlaceHolder="Select Country..." id="country" nzSize="large">
-              <nz-option *ngFor="let item of countryList" [nzValue]="item.id" [nzLabel]="item.label"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-label [nzXs]="24" nzFor="postalCode" class="ant-form-item-label-required label-lg">Postal Code</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="postalCode" id="postalCode" placeholder="Postal Code" nzSize="large"/>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-label [nzXs]="24" nzFor="city" class="ant-form-item-label-required label-lg">City</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="city" id="city" placeholder="City" nzSize="large"/>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-label [nzXs]="24" nzFor="email" class="ant-form-item-label-required label-lg">Email</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="email" id="email" placeholder="your@email.com" nzSize="large"/>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-label [nzXs]="24" nzFor="phone" class="ant-form-item-label-required label-lg">Phone number</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="phone" id="phone" placeholder="Your Phone number" nzSize="large"/>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <nz-form-item>
-          <nz-form-control>
-            <button nz-button [nzType]="'primary'" nzSize="large">Book now</button>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

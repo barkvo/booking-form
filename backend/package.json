@@ -23,7 +23,8 @@
     "typeorm:mgenerate": "npm run typeorm migration:generate -- -n",
     "typeorm:mrun": "npm run typeorm migration:run",
     "typeorm:mrevert": "npm run typeorm migration:revert",
-    "postgres-local": "docker-compose -p booking-form-backend -f ./docker-compose.yml up --build --abort-on-container-exit"
+    "postgres-local": "docker-compose -p booking-form-backend-dev -f ./docker/docker-compose.dev.yml up --build --abort-on-container-exit",
+    "docker-stand": "docker-compose -p booking-form-backend -f ./docker/docker-compose.yml up --build --abort-on-container-exit"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

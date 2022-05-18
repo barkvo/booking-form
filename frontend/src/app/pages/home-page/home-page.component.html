@@ -96,3 +96,6 @@
     </form>
   </div>
 </div>
+<ng-template #confirmationTemplate let-params>
+  <p *ngFor="let item of params.items">{{ item.title }}: {{ item.value }}</p>
+</ng-template>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { ApiService, CreateReservationRequest } from '../../services/api.service';
 import countryList from './country-list.json';
 
@@ -51,7 +52,12 @@ export class HomePageComponent implements OnInit {
 
   public countryList: ReadonlyArray<CountryListItem> = buildCountryList(countryList);
 
-  constructor(private apiService: ApiService) { }
+  @ViewChild('confirmationTemplate', { static: true }) confirmationTemplate: TemplateRef<{}>;
+
+  constructor(
+    private modalService: NzModalService,
+    private apiService: ApiService,
+  ) { }
 
   public ngOnInit(): void {
     this.form = new FormGroup({
@@ -73,10 +79,33 @@ export class HomePageComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    const data = this.form.value;
+    const transformedData = transformFormData(this.form.value);
+    this.modalService.confirm({
+      nzTitle: 'Please confirm your reservation data',
+      nzContent: this.confirmationTemplate,
+      nzOnOk: () => this.createReservation(transformedData),
+      nzComponentParams: {
+        items: [
+          { title: 'Check-in date', value: new Date(transformedData.checkInDate).toLocaleDateString("en-US") },
+          { title: 'Check-out date', value: new Date(transformedData.checkOutDate).toLocaleDateString("en-US") },
+          { title: 'Number of guests', value: transformedData.guestsAmount },
+          { title: 'First Name', value: transformedData.firstName },
+          { title: 'Last Name', value: transformedData.lastName },
+          { title: 'Billing Address', value: transformedData.address },
+          { title: 'Billing Country', value: transformedData.country },
+          { title: 'Postal Code', value: transformedData.postalCode },
+          { title: 'City', value: transformedData.city },
+          { title: 'Email', value: transformedData.email },
+          { title: 'Phone Number', value: transformedData.phone }
+        ]
+      },
+    });
+  }
+
+  private async createReservation(data: CreateReservationRequest) {
     try {
-      console.log('! data', data, transformFormData(data));
-      const result = await this.apiService.createReservation({ reservationData: transformFormData(data) });
+      console.log('! data', data);
+      const result = await this.apiService.createReservation({ reservationData: data });
       console.log('! result', result);
     } catch (err) {
       console.log('! error', err);

@@ -1,21 +1,14 @@
 // core modules
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-
-// routing
-import { AppRoutingModule } from './app-routing.module';
-
-// components
-import { AppComponent } from './app.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// UI library
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US } from 'ng-zorro-antd/i18n';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
@@ -28,14 +21,21 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
-import { ApiService } from './services/api.service';
+// main app stuff
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+// components
+import { BookingFormPageComponent } from './pages/booking-form/booking-form.component';
+import { ApiService } from './services/api/api.service';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent,
+    BookingFormPageComponent,
   ],
   imports: [
     BrowserModule,

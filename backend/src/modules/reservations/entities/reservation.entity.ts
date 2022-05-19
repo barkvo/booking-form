@@ -1,11 +1,5 @@
 import { Reservation as ReservationInterface, ReservationId } from '../types/reservation.types';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Reservation implements ReservationInterface {

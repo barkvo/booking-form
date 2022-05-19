@@ -9,7 +9,6 @@ export const getConfig = (): {
     POSTGRES_HOST,
     POSTGRES_PORT,
     POSTGRES_DB,
-    POSTGRES_SSL,
   } = process.env;
   return {
     database: {
@@ -25,11 +24,6 @@ export const getConfig = (): {
       cli: {
         migrationsDir: 'src/migrations',
       },
-      // WARNING: workaround for Heroku, probably not a production solution
-      ssl: POSTGRES_SSL === 'true' ? {
-        requestCert: true,
-        rejectUnauthorized: false,
-      } : false,
     },
   };
 };

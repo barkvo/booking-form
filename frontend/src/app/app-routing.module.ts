@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Components
-import { HomePageComponent } from './pages/home-page/home-page.component';
+import { BookingFormPageComponent } from './pages/booking-form/booking-form.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomePageComponent
+    component: BookingFormPageComponent
   }
 ];
 

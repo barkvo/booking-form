@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  HttpStatus,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, HttpStatus, Query } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
 import { pipe } from 'fp-ts/pipeable';
 import * as TE from 'fp-ts/TaskEither';
@@ -13,7 +6,12 @@ import { isString } from 'lodash';
 import { HttpStatusCode } from '../../../core/http';
 import { eitherToPromise } from '../../../core/fp-ts';
 import { GetReservationsInput, ReservationService } from '../services/reservation.service';
-import { CreateReservationResponse, CreateReservationRequest, GetReservationsResponse, GetReservationsRequest } from '../types/api.types';
+import {
+  CreateReservationResponse,
+  CreateReservationRequest,
+  GetReservationsResponse,
+  GetReservationsRequest,
+} from '../types/api.types';
 import { BasicReservationData } from '../types/reservation.types';
 import { CreateReservationDto, GetReservationsDto } from './reservation.controller.dto';
 

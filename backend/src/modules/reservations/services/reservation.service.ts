@@ -53,9 +53,7 @@ export class ReservationService {
   public getReservations: GetReservations = ({ page = 1, perPage = 25 }) => {
     return pipe(
       Apply.sequenceS(TE.taskEither)({
-        reservations: this.eitherifiedReservationRepository.findByManyOptions(
-          calculatePagination({ page, perPage }),
-        ),
+        reservations: this.eitherifiedReservationRepository.findByManyOptions(calculatePagination({ page, perPage })),
         reservationsTotal: this.eitherifiedReservationRepository.count(),
       }),
       TE.map(({ reservations, reservationsTotal }) => ({

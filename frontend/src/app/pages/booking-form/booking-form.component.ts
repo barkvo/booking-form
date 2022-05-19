@@ -2,7 +2,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { ApiService, CreateReservationRequest } from '../../services/api.service';
+import { ApiService } from '../../services/api/api.service';
+import { CreateReservationRequest } from '../../types/api.types';
 import countryList from './country-list.json';
 
 interface CountryListItem {
@@ -50,11 +51,11 @@ const extractErrorMessage = (err: unknown): string => {
 } 
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  selector: 'app-booking-form',
+  templateUrl: './booking-form.component.html',
+  styleUrls: ['./booking-form.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class BookingFormPageComponent implements OnInit {
 
   public form: FormGroup;
 

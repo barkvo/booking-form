@@ -24,7 +24,8 @@
     "typeorm:mrun": "npm run typeorm migration:run",
     "typeorm:mrevert": "npm run typeorm migration:revert",
     "postgres-local": "docker-compose -p booking-form-backend-dev -f ./docker/docker-compose.dev.yml up --build --abort-on-container-exit",
-    "docker-stand": "docker-compose -p booking-form-backend -f ./docker/docker-compose.yml up --build --abort-on-container-exit"
+    "docker-stand": "docker-compose -p booking-form-backend -f ./docker/docker-compose.yml up --build --abort-on-container-exit",
+    "release": "sh heroku_build.sh && sh heroku_deploy.sh"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

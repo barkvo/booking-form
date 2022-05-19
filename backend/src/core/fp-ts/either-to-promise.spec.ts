@@ -2,6 +2,13 @@ import { pipe } from 'fp-ts/pipeable';
 import * as TE from 'fp-ts/TaskEither';
 import { eitherToPromise } from './either-to-promise';
 
+const extractErrorMessage = (err: unknown): string => {
+  if (err instanceof Error) {
+    return err.message;
+  }
+  return 'Unknown error';
+};
+
 describe('eitherToPromise', () => {
   it('testing eitherToPromise function', async () => {
     class TestError extends Error {}
@@ -21,7 +28,7 @@ describe('eitherToPromise', () => {
     try {
       await eitherToPromise(testFailFunction());
     } catch (e) {
-      expect(e?.message).toMatch('An error has happened');
+      expect(extractErrorMessage(e)).toMatch('An error has happened');
     }
 
     const response = await eitherToPromise(testSuccessFunction());
@@ -30,13 +37,13 @@ describe('eitherToPromise', () => {
     try {
       await eitherToPromise(pipe(testSuccessFunction(), TE.chain(testFailFunction)));
     } catch (e) {
-      expect(e?.message).toMatch('An error has happened');
+      expect(extractErrorMessage(e)).toMatch('An error has happened');
     }
 
     try {
       await eitherToPromise(pipe(testFailFunction(), TE.chain(testSuccessFunction)));
     } catch (e) {
-      expect(e?.message).toMatch('An error has happened');
+      expect(extractErrorMessage(e)).toMatch('An error has happened');
     }
 
     try {
@@ -44,7 +51,7 @@ describe('eitherToPromise', () => {
         pipe(testFailFunction(), TE.fold(testFailFunction2, testSuccessFunction), TE.chain(testSuccessFunction)),
       );
     } catch (e) {
-      expect(e?.message).toMatch('An error has happened in second function');
+      expect(extractErrorMessage(e)).toMatch('An error has happened in second function');
     }
 
     try {
@@ -52,7 +59,7 @@ describe('eitherToPromise', () => {
         pipe(testFailFunction2(), TE.fold(testSuccessFunction, testSuccessFunction), TE.chain(testFailFunction)),
       );
     } catch (e) {
-      expect(e?.message).toMatch('An error has happened');
+      expect(extractErrorMessage(e)).toMatch('An error has happened');
     }
   });
 });

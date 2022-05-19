@@ -24,9 +24,9 @@ interface GetReservationsResult {
 
 type GetReservations = (i: GetReservationsInput) => TE.TaskEither<Error, GetReservationsResult>;
 
-type CalculatePagination = (i: { page: number; perPage: number; }) => { skip: number; take: number };
+type CalculatePagination = (i: { page: number; perPage: number }) => { skip: number; take: number };
 
-const calculatePagination: CalculatePagination = ({ page, perPage }) => ({
+export const calculatePagination: CalculatePagination = ({ page, perPage }) => ({
   skip: page === 1 ? 0 : (page - 1) * perPage,
   take: perPage,
 });
@@ -46,7 +46,7 @@ export class ReservationService {
     return pipe(
       TE.fromEither(this.eitherifiedReservationRepository.create(reservationData)),
       TE.chainFirst((d) => this.eitherifiedReservationRepository.insert(d)),
-      TE.chain((word) => TE.right(word)),
+      TE.chain((reservation) => TE.right(reservation)),
     );
   };
 

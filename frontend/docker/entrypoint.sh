@@ -11,6 +11,6 @@ if [ ! -z "$CONFIG_PATH" ]; then
 fi
 find $TARGET_DIR -name "main-*.js" -maxdepth 1 -type f -exec sh -c "envsubst '\${EXTERNAL_CONFIG_VALUE},\${EXTERNAL_ENVIRONMENT_VALUE}' < {} > $(basename {})temp && mv $(basename {})temp {}" {} \;
 
-envsubst '${API_HOST} ${API_PORT} ${PORT}' < /etc/nginx/conf.d/server.conf.template > /etc/nginx/conf.d/server.conf
+envsubst '${API_HOST} ${API_PORT} ${NGINX_PORT}' < /etc/nginx/conf.d/server.conf.template > /etc/nginx/conf.d/server.conf
 
 nginx -g 'daemon off;'
